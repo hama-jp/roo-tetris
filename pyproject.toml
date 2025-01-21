@@ -1,0 +1,9 @@
+[project]
+name = "tetris-deep-seek"
+version = "0.1.0"
+description = "Extendable Tetris implementation"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = []
