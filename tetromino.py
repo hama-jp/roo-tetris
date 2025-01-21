@@ -30,7 +30,53 @@ class Tetromino:
                     [0,0,0,0]
                 ]
             },
-            # ...（既存の形状定義）...
+            TetrominoType.O: {
+                "color": (255, 255, 0),
+                "matrix": [
+                    [2,2],
+                    [2,2]
+                ]
+            },
+            TetrominoType.T: {
+                "color": (128, 0, 128),
+                "matrix": [
+                    [0,3,0],
+                    [3,3,3],
+                    [0,0,0]
+                ]
+            },
+            TetrominoType.S: {
+                "color": (0, 255, 0),
+                "matrix": [
+                    [0,4,4],
+                    [4,4,0],
+                    [0,0,0]
+                ]
+            },
+            TetrominoType.Z: {
+                "color": (255, 0, 0),
+                "matrix": [
+                    [5,5,0],
+                    [0,5,5],
+                    [0,0,0]
+                ]
+            },
+            TetrominoType.J: {
+                "color": (0, 0, 255),
+                "matrix": [
+                    [6,0,0],
+                    [6,6,6],
+                    [0,0,0]
+                ]
+            },
+            TetrominoType.L: {
+                "color": (255, 165, 0),
+                "matrix": [
+                    [0,0,7],
+                    [7,7,7],
+                    [0,0,0]
+                ]
+            }
         }
         return cls(
             shape_type=shape_type,

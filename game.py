@@ -5,7 +5,7 @@ from tetromino import Tetromino, TetrominoType
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((300, 600))
+        self.screen = pygame.display.set_mode((500, 600))  # プレビュー領域追加のため幅を拡張
         
         # 色のマッピング
         self.colors = {
@@ -25,12 +25,20 @@ class Game:
         self.height = 20
         self.board = [[0] * self.width for _ in range(self.height)]
         
-        self.current_piece = self._new_piece()
+        self.current_piece = None
+        self.next_piece = self._new_piece()
+        self._spawn_new_piece()
         self.score = 0
         self.game_over = False
 
     def _new_piece(self):
         return Tetromino.create(random.choice(list(TetrominoType)))
+        
+    def _spawn_new_piece(self):
+        self.current_piece = self.next_piece
+        self.next_piece = self._new_piece()
+        self.current_piece.x = self.width // 2 - len(self.current_piece.matrix[0]) // 2
+        self.current_piece.y = 0
 
     def _check_collision(self, offset_x=0, offset_y=0):
         for y, row in enumerate(self.current_piece.matrix):
@@ -80,7 +88,7 @@ class Game:
                     elif event.key == pygame.K_RIGHT:
                         if not self._check_collision(offset_x=1):
                             self.current_piece.x += 1
-                    elif event.key == pygame.K_UP:
+                    elif event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                         self.current_piece.rotate()
                     elif event.key == pygame.K_DOWN:
                         if not self._check_collision(offset_y=1):
@@ -90,7 +98,7 @@ class Game:
                 self.current_piece.y += 1
             else:
                 self._merge_piece()
-                self.current_piece = self._new_piece()
+                self._spawn_new_piece()
                 if self._check_collision():
                     self.game_over = True
 
@@ -116,6 +124,24 @@ class Game:
             font = pygame.font.SysFont('Arial', 24)
             score_text = font.render(f'Score: {self.score}', True, (255, 255, 255))
             self.screen.blit(score_text, (10, 10))
+            
+            # ネクストテトリミノ表示
+            preview_x = self.width * self.grid_size + 50
+            preview_y = 100
+            preview_size = 4 * self.grid_size
+            
+            # プレビュー背景
+            pygame.draw.rect(self.screen, (50, 50, 50), 
+                           (preview_x, preview_y, preview_size, preview_size))
+            
+            # ネクストテトリミノ描画
+            for y, row in enumerate(self.next_piece.matrix):
+                for x, cell in enumerate(row):
+                    if cell:
+                        px = preview_x + x * self.grid_size + (preview_size - len(self.next_piece.matrix[0]) * self.grid_size) // 2
+                        py = preview_y + y * self.grid_size + (preview_size - len(self.next_piece.matrix) * self.grid_size) // 2
+                        pygame.draw.rect(self.screen, self.next_piece.color,
+                            (px, py, self.grid_size-1, self.grid_size-1))
             
             pygame.display.update()
 
