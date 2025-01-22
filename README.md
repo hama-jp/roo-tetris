@@ -45,10 +45,6 @@ pulseaudio.exe --start
 ```
 3. WSLで再ログイン
 
-## 📸 スクリーンショット
-![ゲーム画面](/screenshots/gameplay.png)
-![ハイスコア画面](/screenshots/highscore.png)
-
 ## 📜 ライセンス
 MIT License - [LICENSE](LICENSE)ファイルを参照
 
