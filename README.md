@@ -1,6 +1,6 @@
 # 🎮 Roo-Tetris (ルーテトリス)
 
-PythonとPygameで作成されたモダンなテトリスゲーム
+PythonとPygameで作成されたモダンなテトリスゲーム。このドキュメントも含めてすべてRooCode(with DeepSeek-r1)で生成しています。
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
